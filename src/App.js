@@ -10,8 +10,8 @@ function Todo({ todo, index, completeTodo, removeTodo }) {
       style={{ textDecoration: todo.isCompleted ? "line-through" : "" }}>
 
       <input type="checkbox" onChange ={() => completeTodo(todo.text)} checked={todo.isCompleted}/>
-        {todo.text}
-      <button onClick={() => removeTodo(todo.text)}>&#10006;</button>
+      <span className="todo-text">{todo.text}</span>
+      <button className="btn-delete" onClick={() => removeTodo(todo.text)}>&#10006;</button>
     </li>
   );
 }
@@ -33,6 +33,7 @@ function TodoForm({ addTodo }) {
         className="input"
         value={value}
         onChange={e => setValue(e.target.value)}
+        placeholder="Add to do"
       />
       <button>Add</button>
     </form>
@@ -70,13 +71,12 @@ function App() {
   };
 
   const removeTodo = text => {
-    //const newTodos = [...todos];
-    //newTodos.splice(index, 1);
     setTodos(todos.filter(todo => todo.text !== text));
   };
 
   return (
     <div className="app">
+      <h1>To Do</h1>
       <TodoForm addTodo={addTodo} />
       <List todos={todos} completeTodo={completeTodo} removeTodo={removeTodo}/>
     </div>
@@ -114,8 +114,8 @@ function List({todos, completeTodo, removeTodo}) {
 }
 function Filters({filter, setFilter}) {
   return <div>
-    <p>
-      Show:
+    <p className="filters">
+      <span>Show:</span>
       {" "}
       {filter == FILTER_ALL
         ? <a href="#all"><b>All</b></a>
